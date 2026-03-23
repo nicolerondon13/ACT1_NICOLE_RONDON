@@ -1,43 +1,82 @@
-const { request, response } = require('express');
 const Productora = require('../models/Productora');
+const { request, response } = require('express');
 
 const getProductora = async (req = request, res = response) => {
     try {
-        const productora = await Productora.find();
-        res.status(200).json(productora);
+        const productoras = await Productora.find();
+        res.status(200).json(productoras);
     } catch (error) {
-        console.error('❌ Error al obtener productoras:', error);
-        res.status(500).json({ msg: 'Ocurrió un error al listar las productoras' });
+        console.error(error);
+        res.status(500).json({ msg: 'Error al listar productoras' });
     }
 };
 
 const createProductora = async (req = request, res = response) => {
     try {
-        const { nombre, descripcion } = req.body;
+        console.log("BODY:", req.body);
 
-        const productoraDB = await Productora.findOne({ nombre });
+        const { nombre, slogan, descripcion } = req.body;
 
-        if (productoraDB) {
+        const existe = await Productora.findOne({ nombre });
+
+        if (existe) {
             return res.status(400).json({
-                msg: `La productora "${nombre}" ya existe.`
+                msg: `La productora "${nombre}" ya existe`
             });
         }
 
-        const productora = new Productora({ nombre, descripcion });
+        const productora = new Productora({
+            nombre,
+            slogan,
+            descripcion
+        });
 
         await productora.save();
 
         res.status(201).json(productora);
 
     } catch (error) {
-        console.error('❌ Error al crear la productora:', error);
+        console.error(error);
         res.status(500).json({
-            msg: 'Ocurrió un error al guardar el género'
+            msg: 'Error al guardar la productora'
         });
+    }
+};
+
+const updateProductora = async (req, res) => {
+    try {
+        const {id} = req.params;
+        const {nombre, slogan, descripcion } = req.body;
+
+        const productora = await Productora.findByIdAndUpdate(
+            id,
+            { nombre, slogan, descripcion, fechaActualizacion: Date.now() },
+            { new: true }
+        );
+
+        res.json(productora);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ msg: "Error al actualizar productora" });
+    }
+};
+
+const deleteProductora = async (req, res) => {
+    try {
+        const {id} = req.params;
+
+        await Productora.findByIdAndDelete(id);
+
+        res.json({ msg: "Productora eliminada" });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ msg: "Error al eliminar productora" });
     }
 };
 
 module.exports = {
     getProductora,
-    createProductora
+    createProductora,
+    updateProductora,
+    deleteProductora
 };

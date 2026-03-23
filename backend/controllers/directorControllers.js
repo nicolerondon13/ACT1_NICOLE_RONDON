@@ -40,8 +40,41 @@ const createDirector = async (req = request, res = response) => {
     }
 };
 
+const updateDirector = async (req, res) => {
+    try {
+        const {id} = req.params;
+        const {nombre} = req.body;
+
+        const director = await Director.findByIdAndUpdate(
+            id,
+            { nombre, fechaActualizacion: Date.now() },
+            { new: true }
+        );
+
+        res.json(director);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ msg: "Error al actualizar director" });
+    }
+};
+
+const deleteDirector = async (req, res) => {
+    try {
+        const {id} = req.params;
+
+        await Director.findByIdAndDelete(id);
+
+        res.json({ msg: "Director eliminado" });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ msg: "Error al eliminar director" });
+    }
+};
+
 module.exports = {
     getDirector,
-    createDirector
+    createDirector,
+    updateDirector,
+    deleteDirector
 };
 
