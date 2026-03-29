@@ -3,6 +3,7 @@ import Generos  from "./pages/Genero";
 import Director from "./pages/Director";
 import Productora from "./pages/Productora";
 import Tipo from "./pages/Tipo";
+import Media from "./pages/Media";
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
       <Director />
       <Productora />
       <Tipo />
+      <Media />
     </div>
   );
 }
