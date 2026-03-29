@@ -15,7 +15,7 @@ function Director() {
 
         try {
 
-            const response = await fetch("http://localhost:4000/api/director", {
+            const response = await fetch("https://act1-nicole-rondon.onrender.com/api/director", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

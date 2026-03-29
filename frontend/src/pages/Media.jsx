@@ -55,7 +55,7 @@ function Media() {
     e.preventDefault();
 
     try {
-      const res = await fetch("http://localhost:4000/api/media", {
+      const res = await fetch("https://act1-nicole-rondon.onrender.com/api/media", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"

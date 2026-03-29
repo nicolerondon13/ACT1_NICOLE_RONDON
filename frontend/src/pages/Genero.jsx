@@ -16,7 +16,7 @@ function Generos() {
 
         try {
 
-            const response = await fetch("http://localhost:4000/api/genero", {
+            const response = await fetch("https://act1-nicole-rondon.onrender.com/api/genero", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

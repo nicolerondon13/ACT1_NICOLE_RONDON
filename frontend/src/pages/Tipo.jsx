@@ -16,7 +16,7 @@ function Tipos() {
 
         try {
 
-            const response = await fetch("http://localhost:4000/api/tipo", {
+            const response = await fetch("https://act1-nicole-rondon.onrender.com/api/tipo", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

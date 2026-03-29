@@ -18,7 +18,7 @@ function Productora() {
 
         try {
 
-            const response = await fetch("http://localhost:4000/api/productora", {
+            const response = await fetch("https://act1-nicole-rondon.onrender.com/api/productora", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
